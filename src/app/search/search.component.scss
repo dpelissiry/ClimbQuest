@@ -1,0 +1,68 @@
+.search-content {
+  position: relative;
+  z-index: 1;
+  width: 90%; /* Slightly reduce width for padding */
+  max-width: 800px; /* Max width for larger screens */
+  margin: auto; /* Center the content */
+  margin-bottom: 2rem;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* More prominent shadow for depth */
+}
+.search-container {
+    display: flex; /* Enables flexbox layout */
+    justify-content: center; /* Center items horizontally */
+    flex-direction: row; /* Stack items vertically */
+    align-items: center; /* Center items vertically */
+    gap: 10px
+  }
+  input[type="text"]{
+    width: 400px;
+  }
+  input[type="text"], button {
+    
+    padding: 10px;
+    margin-top: 10px; /* Add space above */
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    
+  }
+  button {
+    background-color: #007bff; /* A pleasant shade of blue */
+    color: white;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3; /* Darker blue on hover for feedback */
+  }
+  
+  .search-content {
+    position: relative;
+    z-index: 1;
+    width: 90%; /* Slightly reduce width for padding */
+    max-width: 800px; /* Max width for larger screens */
+    margin: auto; /* Center the content */
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* More prominent shadow for depth */
+  }
+
+  .options-container {
+  
+    display: flex; /* Enables flexbox layout */
+    justify-content: center; /* Center items horizontally */
+    flex-direction: row; /* Stack items vertically */
+    align-items: center; /* Center items vertically */
+    gap: 30px
+  }
+  .options-container div {
+    margin: 10px 0; /* Add some vertical space between options */
+  }
+  
+  label {
+    margin-left: 8px; /* Space out the label from the radio button */
+  }

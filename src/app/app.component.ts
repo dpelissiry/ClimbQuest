@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
-  title = 'ClimbQuest';
-}
+export class AppComponent {} // main app componenet that is nested in the index.html

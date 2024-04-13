@@ -1,0 +1,15 @@
+<div *ngIf="searchData['code'] === 200; else errorBlock">
+    
+    <div class="results-container" id="results-container" >
+        <app-result-block *ngFor="let climb of searchData['data']" [data]="climb"></app-result-block>
+    </div>
+</div>
+
+    <!-- Else block defined using ng-template -->
+<ng-template #errorBlock>
+    <div class="results-container" id="results-container">
+        <app-error-block></app-error-block>
+    </div>
+</ng-template>
+
+

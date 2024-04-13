@@ -1,0 +1,27 @@
+<div class="search-content">
+    <div class="search-container">
+      
+        <input type="text" id="searchInput" placeholder="Search climbs" #searchInput >
+        <button (click)="searchClimbs(searchInput.value, radio1,radio2,radio3)">Search</button>
+    
+    </div>
+    <div class = "options-container">
+
+        <div>
+          <input type="radio" id="boulder" name="type" value="Boulder" checked #radio1/>
+          <label for="boulder">Boulder</label>
+        </div>
+    
+        <div>
+          <input type="radio" id="sport" name="type" value="Sport" #radio2/>
+          <label for="sport">Sport</label>
+        </div>
+    
+        <div>
+          <input type="radio" id="trad" name="type" value="Trad" #radio3/>
+          <label for="trad">Trad</label>
+        </div>
+    </div>
+    <!-- <app-sort></app-sort> -->
+</div>
+<app-result [searchData]="results"></app-result>

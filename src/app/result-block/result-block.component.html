@@ -1,0 +1,36 @@
+<!-- search-result.component.html -->
+<div class="search-result" (click)="navigate()">
+  <!-- Placeholder for the image area -->
+  <div *ngIf="data['image'] != null" class="search-result-pic" style="grid-area: pic;">
+    <img src="{{ data.image }}" alt="{{ data.name }}" />
+  </div>
+  <!-- Title -->
+  <div class="search-result-title" style="grid-area: title;">
+    {{ data.name }}
+  </div>
+  <div style="grid-area: loc;">
+    {{ data.location }}
+  </div>
+  <!-- Description -->
+  <div class="search-result-desc" style="grid-area: desc;">
+    <h4>Description</h4>
+    {{ data.description }}
+  </div>
+  <!-- Protection -->
+  <div class="search-result-pro" style="grid-area: pro;">
+    <h4>Protection</h4>
+    {{ data.protection }}
+  </div>
+  <!-- Votes -->
+  <div style="grid-area: votes;">
+    {{ data.num_votes }} votes
+  </div>
+  <!-- Rating -->
+  <div style="grid-area: rating;">
+    {{ data.rating }} stars
+  </div>
+  <!-- Grade, not included in the initial grid template areas -->
+  <div class="search-result-grade" style="grid-area: grade;">
+    {{ data.grade }}
+  </div>
+</div>
