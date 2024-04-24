@@ -10,7 +10,8 @@ export class ResultBlockComponent {
   @Input() data: any; // decorate the property with @Input()
   constructor() { }
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['data']) {
+    if (changes['data'] && this.data && this.data['location']) {
+      console.log(typeof this.data['location']); 
       this.data['location'] = this.data['location'].split(" >").slice(1,3)
       if(this.data['description'].length > 100){
         this.data['description'] = this.data['description'].slice(0,100)+"...";
