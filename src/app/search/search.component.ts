@@ -1,5 +1,10 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit} from '@angular/core';
+
+import { SearchService } from '../search.service';
+import { HttpService } from '../http.service';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+
 
 
 @Component({
@@ -13,7 +18,8 @@ export class SearchComponent implements OnInit {
 
 
   results :any;
-  constructor(private http: HttpClient) {}
+  constructor(private httpService: HttpService, private searchService: SearchService) {}
+
 
   ngOnInit(): void {}
 
@@ -28,10 +34,18 @@ export class SearchComponent implements OnInit {
     const searchType = selectedRadio ? selectedRadio.value : null;
 
     //convert the search type to an enum to pass to gpt
-    this.http.post('http://localhost:3000/search', { query: searchValue, type: searchType })
-      .subscribe(response => this.results=response);
-    //const query = gpt(searchValue, climb);
+    this.httpService.searchPost(searchValue, searchType)
+    .pipe(
+      catchError((error) => {
+        console.error('Error during search:', error);
+        return of([]); // or `throwError` to re-throw, depending on how you want to handle it
+      })
+    )
+    .subscribe(
+      (response) => {
+        this.searchService.updateResults(response);
+      });
+        //update results with a searchService
 
-    //console.log(query);
-  }
+    }
 }

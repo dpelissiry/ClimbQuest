@@ -2,7 +2,7 @@
     <div class="search-container">
       
         <input type="text" id="searchInput" placeholder="Search climbs" #searchInput >
-        <button (click)="searchClimbs(searchInput.value, radio1,radio2,radio3)">Search</button>
+        <button (click)="searchClimbs(searchInput.value, radio1,radio2,radio3)" routerLink="/results">Search</button>
     
     </div>
     <div class = "options-container">
@@ -24,4 +24,4 @@
     </div>
     <!-- <app-sort></app-sort> -->
 </div>
-<app-result [searchData]="results"></app-result>
+<!-- <app-result [searchData]="results"></app-result> -->

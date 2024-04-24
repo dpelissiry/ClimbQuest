@@ -1,7 +1,6 @@
-<div *ngIf="searchData['code'] === 200; else errorBlock">
-    
+<div *ngIf="climbs['code'] === 200; else errorBlock">
     <div class="results-container" id="results-container" >
-        <app-result-block *ngFor="let climb of searchData['data']" [data]="climb"></app-result-block>
+        <app-result-block *ngFor="let climb of climbs['data']" [data]="climb"></app-result-block>
     </div>
 </div>
 

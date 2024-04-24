@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { SearchService } from '../search.service';
 import { NgFor } from '@angular/common';
 
 
@@ -9,11 +10,10 @@ import { NgFor } from '@angular/common';
 })
 export class ResultComponent {
   climbs: any;
-  @Input() searchData: any={data:null}; // decorate the property with @Input()
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['searchData'] && changes['searchData'].currentValue !== undefined) {
-      this.climbs = this.searchData['data']
-    }
+  constructor(private searchService: SearchService) {}
+  ngOnInit() {
+    this.searchService.currentResults.subscribe(results => {
+      this.climbs = results;
+    });
   }
-
 }
