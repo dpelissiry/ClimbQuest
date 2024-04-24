@@ -1,0 +1,25 @@
+<div class="block-container">
+    <h4>{{this.data['query']}}</h4>
+    <div class="all-climbs">
+        <ng-container *ngFor="let climb of data['rows']">
+            <div *ngIf="climb['image'] != null" class="individual-climb" (click)="navigate(climb['URL'])">
+                <div style="grid-area: pic;">
+                    <img src="{{ climb.image }}" alt="{{ climb.name }}" class="pic" />
+                </div>
+                <!-- Title -->
+                <div class="search-result-title" style="grid-area: title;">
+                {{ climb['name'] }}
+                </div>
+
+                <!-- Rating -->
+                <div style="grid-area: rating;">
+                {{ climb.rating }} stars
+                </div>
+                <!-- Grade, not included in the initial grid template areas -->
+                <div class="search-result-grade" style="grid-area: grade;">
+                {{ climb.grade }}
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

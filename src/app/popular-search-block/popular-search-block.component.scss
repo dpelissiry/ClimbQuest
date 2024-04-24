@@ -1,0 +1,66 @@
+.block-container {
+    animation: result-animation 1s forwards;
+    max-width: 95%; /* Max width for larger screens */
+    margin: 1rem auto; /* Center the content and add margin at the top */
+    background-color: rgba(255, 255, 255, 0.95); /* Slightly more opaque background for better readability */
+    border-radius: 10px; /* Slightly larger rounded corners */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Softer shadow */
+    padding: 20px; /* More padding for better spacing inside the container */
+}
+
+
+
+.all-climbs {
+    display: flex;
+    flex-wrap: nowrap; /* Ensures all items are in a single scrollable line */
+    overflow-x: auto; /* Enables horizontal scrolling */
+    gap: 20px; /* More space between items for clarity */
+    margin-top: 20px; /* More vertical space from the title or previous content */
+    padding: 0 10px; /* Padding on sides inside the scrolling area */
+}
+
+.individual-climb {
+    flex: 0 0 auto; /* Flex-grow, flex-shrink, flex-basis */
+    width: 300px; /* Set a fixed width for each climb box, adjust as necessary */
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* One column layout */
+    grid-template-areas:
+        "pic pic"
+        "title title"
+        "grade rating";
+    gap: 0.1rem;
+    padding: .1rem;
+    background-color: #fff; /* Optional for better visibility */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+
+    &:hover {
+        animation: climb-animation .5s forwards;
+        cursor: pointer;
+    }
+}
+
+.pic{
+    max-width: 80%; /* Ensure the image covers the full container width */
+    max-height: 100px; /* Maintain aspect ratio */
+
+}
+@keyframes climb-animation{
+
+    100% {
+        transform: translateY(-5px); /* Lift effect on hover */
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+    }
+}
+@keyframes result-animation {
+    0% {
+        background: rgba(255, 255, 255, 0);
+        opacity: 0;
+        transform: translateY(20px); /* Begin 20px down from the final position */
+    }
+    100% {
+        background: rgba(255, 255, 255, 0.9); /* End with the semi-transparent background */
+        opacity: 1; /* Fully visible */
+        transform: translateY(0); /* End at the final vertical position */
+    }
+}
