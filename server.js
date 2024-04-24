@@ -9,13 +9,14 @@ import cors from 'cors';
 import { test } from './test.js'
 
 // Open a database in read-only mode
-const db = new sqlite3.Database('./climb.db', sqlite3.OPEN_READONLY, (err) => {
+const db = new sqlite3.Database('./climb.db', sqlite3.OPEN_READWRITE, (err) => {
   if (err) {
     console.error('Error opening database', err.message);
     return;
   }
-  console.log('Connected to the SQLite database.');
+  console.log('Connected to the climb database.');
 });
+
 
 const app = express();
 const PORT = 3000;
@@ -26,16 +27,22 @@ app.listen(process.env.PORT || PORT, () => console.log(`Listening on http://loca
 app.use(express.json());//static('public')); //tell express static files are in public directory
 app.use(cors())
 
-app.get('/', async (request, response) => {
-  console.log(join( __dirname + "\\index.html" ))
-  response.sendFile( join( __dirname + "/public/index.html" )); //send static files in public
-});
-
 app.post('/search', async (request, response) => {
   console.log(request.body)
   const { type, query } = request.body;
   const result = await getRequest(query, type); //testing
   response.json(result)
+});
+
+//query pop search
+app.post('/pop-search', async (request, response) =>{
+  try{
+    const { type } = request.body;
+    const result = await querySearchDatabase(type);
+    response.json(result);
+  }catch (error) {
+    console.error("Error fetching data:", error);
+  }
 });
 
 async function testGetRequest(msg,type){
@@ -61,8 +68,8 @@ async function getRequest(msg, type) {
           return createResponse(400, "GPT-generated query is invalid");
       }
 
-      const rows = await queryDatabase(query);
-
+      const rows = await queryClimbDatabase(query);
+      appendToSearchDatabase(msg, type, rows)
       return createResponse(200, "Success", rows)
   } catch (error) {
       console.error("Error in getRequest:", error);
@@ -78,7 +85,7 @@ function createResponse(code = false, message = "", data = null) {
   };
 }
 
-function queryDatabase(query) {
+function queryClimbDatabase(query) {
   return new Promise((resolve, reject) => {
     db.all(query, [], (err, rows) => {
       if (err) {
@@ -89,6 +96,31 @@ function queryDatabase(query) {
         resolve(rows);
       }
     });
+  });
+}
+
+function querySearchDatabase(type) {
+  const top10 = "SELECT * FROM search WHERE id IN (SELECT MIN(id) FROM search GROUP BY query)"
+  return new Promise((resolve, reject) => {
+    db.all(top10, [], (err, rows) => {
+      if (err) {
+        console.error(err.message);
+        reject(err);
+      } else {
+        //console.log(rows);
+        resolve(rows);
+      }
+    });
+  });
+}
+
+async function appendToSearchDatabase(query, type, rows){
+  db.run(`INSERT INTO search (query, type, rows) VALUES(?, ?, ?)`, [query, type, JSON.stringify(rows)], (err) => {
+    if (err) {
+      return console.log(err.message);
+    }
+    // get the last insert id
+    console.log("A row has been inserted");
   });
 }
 
