@@ -26,5 +26,34 @@ def edit_db():
         db.commit()
         print(cursor.fetchone())
 
-edit_db()
+
+def add_table():
+    with sqlite3.connect("climb.db") as db:
+        cursor = db.cursor()
+        sql = """ CREATE TABLE search (
+            id INTEGER PRIMARY KEY,
+            query TEXT,
+            type TEXT,
+            rows TEXT
+        ); """
+        cursor.execute(sql)
+        db.commit()
+
+import sqlite3
+
+def delete_table():
+    try:
+        with sqlite3.connect("climb.db") as db:
+            cursor = db.cursor()
+            sql = "DROP TABLE IF EXISTS search"
+            cursor.execute(sql)
+            db.commit()
+    except sqlite3.Error as e:
+        print(f"An error occurred: {e}")
+
+#add_table()
+
+
+delete_table()
+add_table()
 

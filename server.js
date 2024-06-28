@@ -125,7 +125,6 @@ async function appendToSearchDatabase(query, type, rows){
 }
 
 function preprocessGptQuery(query){
-  console.log(query.includes("SELECT"))
   if (query.includes("SELECT")){
     return true
   }

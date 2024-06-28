@@ -1,14 +1,17 @@
-<div *ngIf="climbs['code'] === 200; else errorBlock">
-    <div class="results-container" id="results-container" >
-        <app-result-block *ngFor="let climb of climbs['data']" [data]="climb"></app-result-block>
-    </div>
-</div>
+<ng-container *ngIf="climbs['code'] === 200; else loadingOrError">
+  <div class="results-container" id="results-container">
+    <app-result-block *ngFor="let climb of climbs['data']" [data]="climb"></app-result-block>
+  </div>
+</ng-container>
 
-    <!-- Else block defined using ng-template -->
-<ng-template #errorBlock>
-    <div class="results-container" id="results-container">
-        <app-error-block></app-error-block>
-    </div>
+<ng-template #loadingOrError>
+  <ng-container *ngIf="climbs['code'] === 199; else errorBlock">
+    <!-- <p>Loading...</p> -->
+  </ng-container>
 </ng-template>
 
-
+<ng-template #errorBlock>
+  <div class="results-container" id="results-container">
+    <app-error-block></app-error-block>
+  </div>
+</ng-template>

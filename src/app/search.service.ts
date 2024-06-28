@@ -13,4 +13,8 @@ export class SearchService {
   updateResults(data: any) {
     this.resultsSource.next(data);
   }
+  clearResults() {
+    this.resultsSource.next({'code' : 199});
+  }
+  
 }

@@ -16,6 +16,11 @@ import { ResultPageComponent } from './result-page/result-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { SmallHeaderComponent } from './small-header/small-header.component';
 import { PopularSearchBlockComponent } from './popular-search-block/popular-search-block.component';
+import { SearchService } from './search.service';
+
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -37,8 +42,10 @@ import { PopularSearchBlockComponent } from './popular-search-block/popular-sear
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAnalyticsModule
   ],
-  providers: [],
+  providers: [SearchService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
