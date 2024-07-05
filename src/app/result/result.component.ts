@@ -10,6 +10,7 @@ import { NgFor } from '@angular/common';
 })
 export class ResultComponent {
   climbs: any;
+  style: string = 'results';
 
   constructor(private searchService: SearchService) {}
   ngOnInit() {

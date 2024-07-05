@@ -36,10 +36,15 @@
               "src/favicon.ico",
               "src/assets"
             ],
+            "allowedCommonJsDependencies": ["leaflet"],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css",
+              "node_modules/leaflet.markercluster/dist/MarkerCluster.css"
             ],
-            "scripts": []
+            "scripts": ["node_modules/leaflet.markercluster/dist/leaflet.markercluster.js"
+            ],
+            "baseHref": ""
           },
           "configurations": {
             "production": {
@@ -98,6 +103,7 @@
             ],
             "styles": [
               "src/styles.scss"
+              
             ],
             "scripts": []
           }

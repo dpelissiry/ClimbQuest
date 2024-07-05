@@ -24,9 +24,7 @@
 }
 
 /* Hover effect for interaction feedback */
-.search-result:hover {
-    background-color: rgba(23, 209, 230, 0.7); /* Light color for hover state */
-}
+
 
 /* Grid layout configuration and overall styling */
 .search-result {
@@ -81,4 +79,7 @@
             "desc"
             "pro";
     }
+}
+.search-result:hover {
+    border-color: var(--darkNavy);
 }

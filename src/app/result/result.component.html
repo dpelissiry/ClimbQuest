@@ -1,12 +1,32 @@
+
 <ng-container *ngIf="climbs['code'] === 200; else loadingOrError">
-  <div class="results-container" id="results-container">
-    <app-result-block *ngFor="let climb of climbs['data']" [data]="climb"></app-result-block>
+  <form class="nav-bar">
+    <div>
+      <input type="radio" name="result-type" id="results" value="results" [(ngModel)]="style" #radio1>
+      <label class="left-button" for="results">Results</label>
+    </div>
+
+    <div>
+      <input type="radio" name="result-type" id="map-style" value="map-style" [(ngModel)]="style" checked #radio2>
+      <label class="right-button" for="map-style">Map</label>
+    </div>
+  </form>
+
+    
+  <div *ngIf="style === 'map-style'">
+    <app-map [data] = "climbs['data']"></app-map>
+  </div>
+  <div *ngIf="style === 'results'">
+
+    <div class="results-container" id="results-container">
+      <app-result-block *ngFor="let climb of climbs['data']" [data]="climb"></app-result-block>
+    </div>
+
   </div>
 </ng-container>
 
 <ng-template #loadingOrError>
   <ng-container *ngIf="climbs['code'] === 199; else errorBlock">
-    <!-- <p>Loading...</p> -->
   </ng-container>
 </ng-template>
 

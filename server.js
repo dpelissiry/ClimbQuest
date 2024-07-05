@@ -30,7 +30,7 @@ app.use(cors())
 app.post('/search', async (request, response) => {
   console.log(request.body)
   const { type, query } = request.body;
-  const result = await getRequest(query, type); //testing
+  const result = await testGetRequest(query, type); //testing
   response.json(result)
 });
 
