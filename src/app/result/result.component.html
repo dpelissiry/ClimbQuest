@@ -17,9 +17,20 @@
     <app-map [data] = "climbs['data']"></app-map>
   </div>
   <div *ngIf="style === 'results'">
+    <div class="paging">
+      <div *ngIf="currentPage > 0">
 
+        <button (click)="reloadResults(-1)">&lt;</button>
+      </div>
+      <div>
+        Page {{this.currentPage+1}} of {{this.highestPage+1}}
+      </div>
+      <div *ngIf="currentPage < highestPage">
+        <button (click)="reloadResults(1)">&gt;</button>
+      </div>
+    </div>
     <div class="results-container" id="results-container">
-      <app-result-block *ngFor="let climb of climbs['data']" [data]="climb"></app-result-block>
+      <app-result-block *ngFor="let climb of climbs['data'].slice(currentPage*pageItems, currentPage*pageItems+pageItems)" [data]="climb"></app-result-block>
     </div>
 
   </div>

@@ -11,15 +11,30 @@ import { NgFor } from '@angular/common';
 export class ResultComponent {
   climbs: any;
   style: string = 'results';
+  pageItems: number = 20;
+  currentPage: number = 0;
+  highestPage: number = 0;
 
   constructor(private searchService: SearchService) {}
   ngOnInit() {
     this.climbs = null;
     this.searchService.currentResults.subscribe(results => {
       this.climbs = results;
-      console.log("Length "+results.length);
+      if (this.climbs['data'] != null){
+        this.highestPage = Math.floor(this.climbs['data'].length / this.pageItems)
+      }
     });
     this.searchService.clearResults();
 
+  }
+
+  reloadResults(direction: number){
+    console.log(this.currentPage, this.highestPage)
+    if (direction == -1){
+      this.currentPage--;
+    }
+    if (direction == 1){
+      this.currentPage++;
+    }
   }
 }

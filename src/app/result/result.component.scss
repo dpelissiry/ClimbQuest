@@ -1,14 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600'); 
-
-/* VARS */
-$open-sans: 'Open Sans', 'Helvetica', sans-serif;
-
-$teal1: #66B3FB;
-$teal2: #4B9DEA;
-$charcoal: #555555;
-$gold: #B6985A;
-
-$activeShadow: 0 0 10px rgba($teal1, .5);
+$activeShadow: 0 0 10px rgba(var(--teal1), .5);
 
 /* MIXINS */
 @mixin focusOutline {outline: dotted 0px #CCC; outline-offset: .45rem;}
@@ -22,6 +12,21 @@ $activeShadow: 0 0 10px rgba($teal1, .5);
   }
 }
 
+.paging {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+
+}
+
+button {
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
 
 .results-container{
     animation-name: result-animation;
@@ -32,7 +37,7 @@ $activeShadow: 0 0 10px rgba($teal1, .5);
     width: 90%; /* Slightly reduce width for padding */
     max-width: 1500px; /* Max width for larger screens */
     margin: auto; /* Center the content */
-    margin-top: 2rem;
+    margin-top: 1rem;
     background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* More prominent shadow for depth */
@@ -79,10 +84,10 @@ $activeShadow: 0 0 10px rgba($teal1, .5);
   }
   input:hover + label{border-color: var(--darkNavy);}
   input:checked + label {
-    background-color: $teal2;
+    background-color: var(--teal2);
     color: #FFF;
-    box-shadow: $activeShadow;
-    border-color: $teal2;
+    box-shadow: var(--activeShadow);
+    border-color: var(--teal2);
     z-index: 1;
   }
   input:focus + label {@include focusOutline;}
