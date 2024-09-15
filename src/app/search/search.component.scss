@@ -9,31 +9,40 @@
   margin: auto; /* Center the content */
   margin-bottom: 2rem;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+  border: solid;
+  border-color: var(--border-color-global);
   border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* More prominent shadow for depth */
+  // box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* More prominent shadow for depth */
+}
+
+.search label {
+  font-family: var(--poppins);
 }
 .search-container {
-    display: flex; /* Enables flexbox layout */
-    justify-content: center; /* Center items horizontally */
-    flex-direction: row; /* Stack items vertically */
-    align-items: center; /* Center items vertically */
+    display: flex;
+    justify-content: center; 
+    flex-direction: row; 
+    align-items: center; 
     gap: 10px
   }
   input[type="text"]{
     width: 400px;
+    border: solid;
+    border-width: 1px;
+    border-color: #E6E6E6;
+  
   }
   input[type="text"], button {
     
     padding: 10px;
     margin-top: 10px; /* Add space above */
-    border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 1rem;
     
   }
   button {
-    background-color: #007bff; /* A pleasant shade of blue */
+    background-color:var(--teal2);
+    border: none;
     color: white;
     cursor: pointer;
   }
@@ -42,17 +51,6 @@
     background-color: #0056b3; /* Darker blue on hover for feedback */
   }
   
-  .search-content {
-    position: relative;
-    z-index: 1;
-    width: 90%; /* Slightly reduce width for padding */
-    max-width: 800px; /* Max width for larger screens */
-    margin: auto; /* Center the content */
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* More prominent shadow for depth */
-  }
 
   .options-container {
   
@@ -77,7 +75,7 @@
         transform: translateY(20px); /* Begin 20px down from the final position */
     }
     100% {
-        background: rgba(255, 255, 255, 0.9); /* End with the semi-transparent background */
+        background: var(--background-color-global); /* End with the semi-transparent background */
         opacity: 1; /* Fully visible */
         transform: translateY(0); /* End at the final vertical position */
     }

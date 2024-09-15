@@ -34,6 +34,7 @@ export class SearchComponent implements OnInit {
     const searchType = selectedRadio ? selectedRadio.value : null;
 
     //convert the search type to an enum to pass to gpt
+    // console.log(selectedRadio.value)
     this.httpService.searchPost(searchValue, searchType)
     .pipe(
       catchError((error) => {
