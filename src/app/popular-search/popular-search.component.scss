@@ -7,8 +7,10 @@
   margin: auto; /* Center the content */
   margin-top: 3.5rem;
   background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+  border: solid;
+  border-color: var(--border-color-global);
   border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* More prominent shadow for depth */
+  // box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* More prominent shadow for depth */
   padding: 10px;
 }
 
@@ -20,7 +22,7 @@
         transform: translateY(20px); /* Begin 20px down from the final position */
     }
     100% {
-        background: rgba(255, 255, 255, 0.9); /* End with the semi-transparent background */
+        background: var(--background-color-global); /* End with the semi-transparent background */
         opacity: 1; /* Fully visible */
         transform: translateY(0); /* End at the final vertical position */
     }
