@@ -22,9 +22,24 @@ export class MapComponent implements AfterViewChecked, OnInit{
         if (climb['Area Latitude'] && climb['Area Longitude']) {
           const marker = L.marker([climb['Area Latitude'], climb['Area Longitude']]);
           // marker.bindPopup(`<app-result-block [data]="climb"></app-result-block>`)
-          marker.bindPopup(`<a href=${climb['URL']} target="_blank"><b>${climb['name']}</b></a> 
-                            <br><div>${climb['grade']}   &emsp;  ${climb['rating']} stars </div>
-                            ${climb['location']}<br>`);
+         marker.bindPopup(`
+  <div style="font-family: Arial, sans-serif; color: #333; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+    <a href="${climb['URL']}" target="_blank" style="text-decoration: none; color: #0066cc;">
+      <b style="font-size: 18px;">${climb['name']}</b>
+    </a>
+    <br>
+    <div style="margin-top: 8px; font-size: 14px;">
+      <span style="font-weight: bold;">Grade:</span> ${climb['grade']}
+    </div>
+    <div style="margin-top: 5px; font-size: 14px;">
+      <span style="font-weight: bold;">Rating:</span> ${climb['rating']} stars
+    </div>
+    <div style="margin-top: 5px; font-size: 14px; color: #555;">
+      <span style="font-weight: bold;">Location:</span> ${climb['location']}
+    </div>
+  </div>
+`);
+
 
           this.marker_list.push(marker);
         } else {
