@@ -1,7 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600'); 
 :root{
  --darkNavy: #213140;
+  --open-sans: 'Open Sans', 'Helvetica', sans-serif;
+  --poppins:  "Poppins", sans-serif;
 
+--teal1: #66B3FB;
+--teal2: #4B9DEA;
+--charcoal: #555555;
+--gold: #B6985A;
+--background-color-global: #FAFAF5; /* End with the semi-transparent background */
+--border-color-global: #E6E6E6;
 }
 * {
   box-sizing: border-box;
@@ -10,7 +19,7 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--poppins);
 }
 body, html {
     margin: 0;
@@ -27,9 +36,10 @@ body, html {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('assets/buttermilks.jpg');
+    background-color: rgb(255, 255, 255);
+    // background-image: url('assets/buttermilks.jpg');
     background-size: cover;
     background-position: center;
-    filter: blur(5px);
+    // filter: blur(5px);
     z-index: -1;
   }
