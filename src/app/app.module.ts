@@ -26,6 +26,7 @@ import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
 import { environment } from '../environments/environment';
 import { MapComponent } from './map/map.component';
 import { FormsModule } from '@angular/forms';
+import { NgxLeafletFullscreenModule } from '@runette/ngx-leaflet-fullscreen';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -49,7 +50,8 @@ import { FormsModule } from '@angular/forms';
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFireAnalyticsModule,
         FormsModule,
-        LeafletMarkerClusterModule],
+        LeafletMarkerClusterModule,
+        NgxLeafletFullscreenModule],
     providers: [SearchService, provideHttpClient(withInterceptorsFromDi())] })
 
 export class AppModule { }
