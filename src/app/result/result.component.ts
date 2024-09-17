@@ -20,6 +20,7 @@ export class ResultComponent {
     this.climbs = null;
     this.searchService.currentResults.subscribe(results => {
       this.climbs = results;
+      this.currentPage = 0;
       if (this.climbs['data'] != null){
         this.highestPage = Math.floor(this.climbs['data'].length / this.pageItems)
       }
