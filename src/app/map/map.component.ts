@@ -62,11 +62,10 @@ export class MapComponent implements AfterViewChecked, OnInit{
 
     });
 
-    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 18,
-      minZoom: 3,
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    });
+    const tiles = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+        maxZoom: 20,
+        subdomains:['mt0','mt1','mt2','mt3']
+});
 
     tiles.addTo(this.map);
       
@@ -84,7 +83,6 @@ export class MapComponent implements AfterViewChecked, OnInit{
   ngAfterViewChecked(): void {
     if (!this.isMapInitialized) {
       this.isMapInitialized = true;
-      console.log("init");
       this.initMap();
       this.addMarkers();
     }
