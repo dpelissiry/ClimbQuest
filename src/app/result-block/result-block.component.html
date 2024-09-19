@@ -1,8 +1,14 @@
 <!-- search-result.component.html -->
-<div class="search-result" (click)="navigate()">
+<div class="search-result" (click)="navigate()" >
   <!-- Placeholder for the image area -->
   <div *ngIf="data['image'] != null" class="search-result-pic" style="grid-area: pic;">
-    <img src="{{ data.image }}" alt="{{ data.name }}" />
+    <div (mouseover)="this.hover = true;" (mouseout)="this.hover = false;">
+      <div *ngIf="this.hover == false; else video">
+        <img src="{{ data.image }}" alt="{{ data.name }}" /></div>
+      <ng-template #video>
+        <div class="video-box"><iframe class="video" src="https://www.youtube.com/embed/H6fo0f9MgoY?autoplay=1&modestbranding=1&mute=1"></iframe></div>
+      </ng-template>
+    </div>
   </div>
   <!-- Title -->
   <div class="search-result-title" style="grid-area: title;">

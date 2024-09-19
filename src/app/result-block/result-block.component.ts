@@ -8,6 +8,7 @@ import { NgIf } from '@angular/common';
 })
 export class ResultBlockComponent {
   @Input() data: any; // decorate the property with @Input()
+  public hover: boolean = false;
   constructor() { }
   // ngOnChanges(changes: SimpleChanges) {
   //   if (changes['data'] && this.data && this.data['location']) {
@@ -18,6 +19,7 @@ export class ResultBlockComponent {
   //   }
   
   // }
+
   navigate(){
     window.open(this.data.URL, '_blank');
   }
