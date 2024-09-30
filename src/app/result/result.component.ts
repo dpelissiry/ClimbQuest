@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { SearchService } from '../search.service';
-import { NgFor } from '@angular/common';
+
 
 
 @Component({
