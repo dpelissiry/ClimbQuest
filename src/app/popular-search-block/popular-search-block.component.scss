@@ -43,6 +43,7 @@
 .pic{
     max-width: 80%; /* Ensure the image covers the full container width */
     max-height: 100px; /* Maintain aspect ratio */
+    border-radius: 5px;
 
 }
 @keyframes climb-animation{
