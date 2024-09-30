@@ -1,5 +1,5 @@
 
-import {  AfterViewChecked, Component, Input, OnInit, ViewChild} from '@angular/core';
+import {  AfterViewChecked, OnChanges, Component, Input, OnInit, ViewChild, SimpleChanges} from '@angular/core';
 import L from 'leaflet';
 
 @Component({
@@ -9,14 +9,23 @@ import L from 'leaflet';
 })
 
 
-export class MapComponent implements AfterViewChecked, OnInit{
+export class MapComponent implements OnChanges{
   @Input() data: any; // decorate the property with @Input()
   map: any;
   private marker_list: L.Marker<any>[] = [];
   private isMapInitialized = false;
 
+  private markers = L.markerClusterGroup({removeOutsideVisibleBounds: true}); 
+
+  // First, remove the layer from the map, then reset the list of markers and the marker cluster group so they arent added back
+
+  private deleteMarkers(): void{
+    this.map.removeLayer(this.markers);
+    this.markers = L.markerClusterGroup({removeOutsideVisibleBounds: true});
+    this.marker_list = [];
+  }
+
   private addMarkers(): void {
-    let markers = L.markerClusterGroup({removeOutsideVisibleBounds: true}); 
     if (this.data && this.data.length > 0) {
       this.data.forEach((climb: any) => {
         if (climb['Area Latitude'] && climb['Area Longitude']) {
@@ -46,15 +55,14 @@ export class MapComponent implements AfterViewChecked, OnInit{
           console.error('Latitude and Longitude are required for markers.');
         }
       });
-      markers.addLayers(this.marker_list);
-      this.map.addLayer(markers);
+      this.markers.addLayers(this.marker_list);
+      this.map.addLayer(this.markers);
     } else {
       console.error('Data is required to add markers.');
     }
   }
-  public fullscreenOptions: FullscreenOptions = {
-    // position: 'topleft'
-  };
+  public fullscreenOptions: FullscreenOptions = {};
+
   private initMap(): void {
     this.map = L.map('map', {
       center: [39.8282, -98.5795],
@@ -65,7 +73,7 @@ export class MapComponent implements AfterViewChecked, OnInit{
     const tiles = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
         maxZoom: 20,
         subdomains:['mt0','mt1','mt2','mt3']
-});
+    });
 
     tiles.addTo(this.map);
       
@@ -75,15 +83,15 @@ export class MapComponent implements AfterViewChecked, OnInit{
   constructor() { }
 
 
-
-  ngOnInit() {
-    console.log("made");
-  }
-
-  ngAfterViewChecked(): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (!this.isMapInitialized) {
       this.isMapInitialized = true;
       this.initMap();
+      this.addMarkers();
+    }
+    else{
+      this.deleteMarkers();
+      console.log(this.marker_list.length)
       this.addMarkers();
     }
   }
