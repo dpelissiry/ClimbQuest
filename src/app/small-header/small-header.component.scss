@@ -2,22 +2,24 @@
     // animation-name: result-animation;
     animation-duration: .5s;
     animation-fill-mode: forwards;
-    position: sticky;  /* Keeps the header at the top when scrolling */
-    top: 0;            /* Distance from the top of the viewport */
-    text-align: center; /* Center header content */
+    display: flex;
+    justify-content: center;
+    // text-align: center; /* Center header content */
     padding: .2rem;
+    // position: absolute;
     // background-color: rgba(255, 255, 255, 0.9); /* Making background less transparent for readability */
     width: 100%; /* Max width for larger screens */
     margin: 0 auto;   /* Center the content horizontally, reset any custom margins */
     margin-top: .5rem;
     margin-bottom: 1rem; /* Add some space below the header */
-    // box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* More subtle shadow for better appearance */
-    // border-radius: 8px; /* Rounded corners */
-    // z-index: 1000;     /* Ensures it stays above other content */
     font-size: 1rem;
     color: black;
     cursor: pointer;  /* Indicates it's clickable */
     width: 100%;       /* Ensure it spans the full container width if needed */
+}
+img {
+  // margin-top: .5rem;
+  width:90px;
 }
 
   @keyframes result-animation {
