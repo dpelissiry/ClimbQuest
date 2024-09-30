@@ -27,6 +27,8 @@ import { environment } from '../environments/environment';
 import { MapComponent } from './map/map.component';
 import { FormsModule } from '@angular/forms';
 import { NgxLeafletFullscreenModule } from '@runette/ngx-leaflet-fullscreen';
+import { SanitizerPipe } from './sanitizer.pipe';
+import { SafePipe } from 'safe-pipe';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -43,6 +45,7 @@ import { NgxLeafletFullscreenModule } from '@runette/ngx-leaflet-fullscreen';
         SmallHeaderComponent,
         PopularSearchBlockComponent,
         MapComponent,
+        SanitizerPipe,
     ],
     bootstrap: [AppComponent],
     imports: [BrowserModule,
