@@ -1,0 +1,19 @@
+{
+       "name": "climb-quest-backend",
+       "type": "module",
+       "version": "1.0.0",
+       "description": "ClimbQuest Backend Server",
+       "main": "server.js",
+       "scripts": {
+              "start": "node server.js"
+       },
+       "author": "dylan",
+       "license": "ISC",
+       "dependencies": {
+              "@runette/ngx-leaflet-fullscreen": "^1.0.7",
+              "cors": "^2.8.5",
+              "express": "^4.17.0",
+              "openai": "^4.33.0",
+              "sqlite3": "^5.1.7"
+       }
+}
