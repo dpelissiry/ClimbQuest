@@ -1,6 +1,6 @@
 {
   "name": "climb-quest",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "ng": "ng",
@@ -26,13 +26,11 @@
     "@runette/ngx-leaflet-fullscreen": "^1.0.7",
     "@types/geojson": "^7946.0.14",
     "@types/leaflet.markercluster": "^1.5.4",
-    "cors": "^2.8.5",
     "firebase": "^10.12.2",
     "leaflet": "^1.9.4",
     "leaflet.markercluster": "^1.5.3",
-    "openai": "^4.33.0",
     "rxjs": "~7.8.0",
-    "sqlite3": "^5.1.7",
+    "safe-pipe": "^3.0.4",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },
