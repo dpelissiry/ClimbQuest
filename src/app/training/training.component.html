@@ -1,0 +1,13 @@
+<section class="description">
+    {{this.description[n]}}
+</section>
+
+<section class="options">
+    <div class="checkboxes">
+        <div *ngFor="let t of this.tags">
+            <input type="checkbox" id={{t}} name={{t}}, value={{t}}>
+            <label for={{t}}>{{t}}</label>
+        </div>
+    </div>
+    <div class="extras"></div>
+</section>

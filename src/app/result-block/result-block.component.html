@@ -1,10 +1,11 @@
 <!-- search-result.component.html -->
-<div class="search-result" (click)="navigate()" >
+<div class="search-result" (click)="navigate()">
   <!-- Placeholder for the image area -->
   <div *ngIf="data['image'] != null" class="search-result-pic" style="grid-area: pic;">
     <div (mouseover)="showVideo()" (mouseout)="this.hover = false;">
       <div *ngIf="this.hover == false; else video">
-        <img src="{{ data.image }}" alt="{{ data.name }}" /></div>
+        <img src="{{ data.image }}" alt="{{ data.name }}" />
+      </div>
       <ng-template #video>
         <div class="video-box"><iframe class="video" [src]="data['youtube'] | safe"></iframe></div>
       </ng-template>
@@ -18,15 +19,15 @@
     {{ data.location }}
   </div>
   <!-- Description -->
-  <div class="search-result-desc" style="grid-area: desc;">
+  <!-- <div class="search-result-desc" style="grid-area: desc;">
     <h4>Description</h4>
     {{ data.description.slice(0,200) + "..." }}
-  </div>
+  </div> -->
   <!-- Protection -->
-  <div class="search-result-pro" style="grid-area: pro;">
+  <!-- <div class="search-result-pro" style="grid-area: pro;">
     <h4>Protection</h4>
     {{ data.protection }}
-  </div>
+  </div> -->
   <!-- Votes -->
   <div style="grid-area: votes;">
     {{ data.num_votes }} votes

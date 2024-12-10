@@ -15,6 +15,9 @@ const db = new sqlite3.Database('./climb.db', sqlite3.OPEN_READWRITE, (err) => {
   console.log('Connected to the climb database.');
 });
 
+const isDev = process.argv.includes('--dev');
+
+if (isDev){ console.log("DEV MODE") }
 
 const app = express();
 const PORT = 3000;
@@ -27,9 +30,17 @@ app.use(cors())
 
 app.post('/search', async (request, response) => {
   console.log(request.body)
-  const { type, query } = request.body;
-  const result = await getRequest(query, type); //testing
-  console.log(result)
+  const { type, query, bbox, bboxEnabled } = request.body;
+
+  let result
+  if (isDev){
+    result = await testGetRequest();
+    
+  }else{
+    result = await getRequest(query, type, JSON.parse(bbox), bboxEnabled); //testing
+  }
+    // console.log(result)
+  console.log(JSON.parse(request.body.bbox)[0])//.forEach((latlng) => console.log(latlng))
   response.json(result)
 });
 
@@ -38,21 +49,40 @@ app.post('/pop-search', async (request, response) => {
   try {
     const { type } = request.body;
     const result = await querySearchDatabase(type);
-    console.log(result.length)
     response.json(result.slice(result.length - 10, result.length));
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 });
 
-async function testGetRequest(msg, type) {
+
+app.post('/descriptions', async (request, response) => {
+  try{
+    
+  }
+  catch(error){
+
+  }
+})
+
+app.post('/training', async (request, response) => {
+  try{
+
+  }
+  catch(error){
+
+  }
+})
+
+async function testGetRequest() {
   const result = test;//await gpt(msg, type);
   return createResponse(200, "Success", result) //testing
 }
 
-async function getRequest(msg, type) {
-  console.log(msg, type);
-  // Assume preprocessUserQuery now returns true/false
+async function getRequest(msg, type, bbox, bboxEnabled) {
+  // console.log(msg, type, bbox, bboxEnabled);
+
+  /* Response if user enters empty request */
   if (!msg || !preprocessUserQuery(msg)) {
     return createResponse(400, "Invalid user query")
   }
@@ -60,17 +90,21 @@ async function getRequest(msg, type) {
   try {
     const result = await gpt(msg, type);
 
-    const query = result['message']['content'];
+    let query = result['message']['content'];
     console.log(query);
 
-    // Assume preprocessGptQuery now returns true/false
+    /* Remove reference to LOCATION in SQL query if bbox is enabled */
+
     if (!preprocessGptQuery(query)) {
       return createResponse(400, "GPT-generated query is invalid");
     }
-
-    const rows = await queryClimbDatabase(query);
+    query = processGptQuery(query, bboxEnabled);
+    let rows = await queryClimbDatabase(query);
     appendToTrainingData(msg, query, type)
     appendToSearchDatabase(msg, type, rows)
+
+    rows = checkInBoundingBox(rows, bboxEnabled, bbox);
+
     return createResponse(200, "Success", rows)
   } catch (error) {
     console.error("Error in getRequest:", error);
@@ -128,17 +162,67 @@ async function appendToSearchDatabase(query, type, rows) {
 }
 
 function preprocessGptQuery(query) {
-  if (query.includes("SELECT")) {
-    return true
-  }
-  return false
+  return query.includes("SELECT")
+
 }
 
 function preprocessUserQuery(query) {
-  if (query.length > 0) {
-    return true
+  return query.length > 0
+}
+
+function processGptQuery(query, bboxEnabled){
+  if(!bboxEnabled){
+    return query
   }
-  return false
+
+  let no_paren_sub = query.match(/location.*%'/)
+  let paren_sub = query.match(/\(location.*?\)/)
+
+  /* Check if multiple location queries in parens */
+
+  if(paren_sub){
+    query = query.slice(0,paren_sub.index) + query.slice((paren_sub.index+paren_sub[0].length))
+  
+    query = query.replace(/WHERE\s*ORDER/, 'ORDER');
+    query = query.replace(/WHERE\s*;/, ''); // Removes empty WHERE at the end
+    query = query.replace(/AND\s*ORDER/, 'ORDER');
+    query = query.replace(/AND\s*;/, '');  // Removes empty AND at the end
+  }
+  /* Match to all locations starting with AND */
+  if (no_paren_sub){
+
+    /* Match to all locations starting and ending with AND */ 
+    query = query.slice(0,no_paren_sub.index) + query.slice((no_paren_sub.index+no_paren_sub[0].length))
+  
+    query = query.replace(/WHERE\s*ORDER/, 'ORDER');
+    query = query.replace(/WHERE\s*;/, ';'); // Removes empty WHERE at the end
+    query = query.replace(/AND\s*ORDER/, 'ORDER');
+    query = query.replace(/AND\s*;/, ';');  // Removes empty AND at the end
+  }
+
+
+  console.log("Processed Query: " + query)
+  return query
+}
+
+function checkInBoundingBox(rows, bboxEnabled, bbox){
+  if(!bboxEnabled){
+    return rows
+  }
+  console.log(rows)
+  let new_rows = []
+  console.log(bbox[1])
+  bbox.forEach((box,i) => {
+    rows.forEach(element => {
+      let lat = element['Area Latitude']
+      let lng = element['Area Longitude']
+      if(((lat <= bbox[i][0].lat && lat >= bbox[i][1].lat) || (lat <= bbox[i][1].lat && lat >= bbox[i][0].lat)) &&
+          ((lng <= bbox[i][1].lng && lng >= bbox[i][0].lng) || (lng <= bbox[i][0].lng && lng >= bbox[i][1].lng))){
+            new_rows.push(element)
+          }
+    });
+  });
+  return new_rows
 }
 
 function appendToTrainingData(input, output, type) {
@@ -150,4 +234,19 @@ function appendToTrainingData(input, output, type) {
     // get the last insert id
     console.log("Training data inserted");
   });
+}
+
+
+
+
+// TRAINING STUFF
+
+function pull_desc(){
+  db.run(`SELECT rowid, description FROM boulder WHERE tags IS NULL`, err => {
+    
+  })
+}
+
+function appendTag(id, tags){
+  db.run(``)
 }

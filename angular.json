@@ -38,6 +38,7 @@
             ],
             "allowedCommonJsDependencies": ["leaflet"],
             "styles": [
+              "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss",
               "node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css",
               "node_modules/leaflet.markercluster/dist/MarkerCluster.css"
@@ -102,13 +103,16 @@
               "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss"
-              
             ],
             "scripts": []
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

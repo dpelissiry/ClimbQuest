@@ -1,0 +1,53 @@
+.logo {
+    margin-right: 50px;
+    width: 6em;
+}
+
+.search-container{
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.options-container{
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .4rem;
+}
+
+.search-content {
+    animation-name: result-animation;
+    animation-duration: .5s;
+    animation-fill-mode: forwards; 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    position: absolute; /* Or use fixed if you want the header to stay on top when scrolling */
+    top: 1rem;
+    left: 2rem;
+    z-index: 1000; /* Ensure it's above the map */
+    padding: .5rem;
+    // margin-left: 2rem;
+    // margin-top: 1rem;
+    width: fit-content;
+    border: solid;
+    border-color: var(--border-color-global);
+    border-radius: 8px; /* Rounded corners */
+}
+
+
+@keyframes result-animation {
+    0% {
+        background: rgba(255, 255, 255, 0);
+        opacity: 0;
+        transform: translateY(20px); /* Begin 20px down from the final position */
+    }
+    100% {
+        background: var(--background-color-global); /* End with the semi-transparent background */
+        opacity: 1; /* Fully visible */
+        transform: translateY(0); /* End at the final vertical position */
+    }
+}

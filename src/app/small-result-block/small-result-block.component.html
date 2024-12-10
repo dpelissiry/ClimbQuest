@@ -1,0 +1,22 @@
+<!-- Small horizontal card to allow more cards to fit on the page while map is
+ still visible -->
+
+
+<div class="container" (click)="zoomMap()">
+
+    <!-- <section *ngIf="data['image'] != null" class="image"> -->
+        <!-- <img src="{{ data.image }}" alt="{{ data.name }}" /> -->
+    <!-- </section> -->
+
+    <section class="info">
+        <div class="name"> {{data.name}} </div>
+        <div class="location">
+            {{data.location}}
+        </div>
+    </section>
+    <div class="grade"> {{data.grade}} </div>
+    <section class="data">
+        <div class="rating"> {{data.rating}} stars </div>
+        <div class="votes"> {{data.num_votes}} votes</div>
+    </section>
+</div>

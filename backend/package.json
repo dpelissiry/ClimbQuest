@@ -5,7 +5,8 @@
        "description": "ClimbQuest Backend Server",
        "main": "server.js",
        "scripts": {
-              "start": "node server.js"
+              "start": "node server.js",
+              "start:dev": "node server.js --dev"
        },
        "author": "dylan",
        "license": "ISC",

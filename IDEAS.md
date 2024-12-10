@@ -1,7 +1,8 @@
 Working on:
 
-popular searches
-Architecture View
+popular searches | COMPLETED
+Map feature - COMPLETED
 
 Future:
-Map feature
+Model that determines tags/flags based on climb description
+Design new climb card to condense information and add better design

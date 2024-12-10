@@ -1,32 +1,31 @@
+  
+
 <div class="search-content">
+    <img class="logo" src="assets\climbquest.png">
+    <!-- <h1 class="heading">Climb Quest</h1> -->
+  <section>
     <div class="search-container">
       <form>
-      
-        <input type="text" class="search" placeholder="Search climbs" #searchInput >
-        <button type="submit" class="search" (click)="searchClimbs(searchInput.value, radio1,radio2,radio3, radio4)" routerLink="/results">Search</button>
+        <mat-form-field>
+          
+          
+          <input matInput type="text" class="input" #searchInput >
+        </mat-form-field>
+        <button mat-button type="submit" class="search" (click)="searchClimbs(searchInput.value, selectedType)" routerLink="/results">Search</button>
       </form>
     </div>
     <div class = "options-container">
 
-        <div>
-          <input type="radio" id="boulder" name="type" value="Boulder" checked #radio1/>
-          <label for="boulder">Boulder</label>
-        </div>
-    
-        <div>
-          <input type="radio" id="sport" name="type" value="Sport" #radio2/>
-          <label for="sport">Sport</label>
-        </div>
-    
-        <div>
-          <input type="radio" id="trad" name="type" value="Trad" #radio3/>
-          <label for="trad">Trad</label>
-        </div>
-    
-        <div>
-          <input type="radio" id="toprope" name="type" value="TopRope" #radio4/>
-          <label for="toprope">Top Rope</label>
-        </div>
+      <app-bounding-box #child></app-bounding-box>
+      <mat-button-toggle-group 
+        [(ngModel)]="selectedType" 
+        aria-label="Font Style"
+        hideSingleSelectionIndicator="true">
+        <mat-button-toggle value="Boulder">Boulder</mat-button-toggle>
+        <mat-button-toggle value="Sport">Sport</mat-button-toggle>
+        <mat-button-toggle value="Trad">Trad</mat-button-toggle>
+        <mat-button-toggle value="Top Rope">Top Rope</mat-button-toggle>
+      </mat-button-toggle-group>
     </div>
-    <!-- <app-sort></app-sort> -->
+ </section>
 </div>

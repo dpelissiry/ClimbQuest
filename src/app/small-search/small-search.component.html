@@ -1,0 +1,28 @@
+  
+
+<div class="search-content">
+    <img class="logo" src="assets\climbquest.png">
+    <div class="search-container">
+      <form>
+        <mat-form-field>
+            <mat-label>Search climbs</mat-label>
+          
+          <input matInput type="text" class="input" #searchInput >
+        </mat-form-field>
+        <button mat-button type="submit" class="search" (click)="searchClimbs(searchInput.value, selectedType)" routerLink="/results">Search</button>
+      </form>
+    </div>
+    <div class = "options-container">
+        <app-bounding-box></app-bounding-box>
+      <mat-button-toggle-group 
+        [(ngModel)]="selectedType" 
+        aria-label="Font Style"
+        hideSingleSelectionIndicator="true">
+        <mat-button-toggle value="Boulder">Boulder</mat-button-toggle>
+        <mat-button-toggle value="Sport">Sport</mat-button-toggle>
+        <mat-button-toggle value="Trad">Trad</mat-button-toggle>
+        <mat-button-toggle value="Top Rope">Top Rope</mat-button-toggle>
+      </mat-button-toggle-group>
+      
+    </div>
+</div>

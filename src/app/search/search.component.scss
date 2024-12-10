@@ -1,12 +1,24 @@
+.logo {
+  // position: absolute;
+  // right: 100%;
+  // z-index: 1;
+  margin-right: 70px;
+  // transform: translateX(-200px);
+  width: 8em;
+}
 .search-content {
   animation-name: result-animation;
   animation-duration: .5s;
   animation-fill-mode: forwards; 
+  display: flex;
+  flex-direction: row;
   position: relative;
   z-index: 1;
-  width: 90%; /* Slightly reduce width for padding */
-  max-width: 800px; /* Max width for larger screens */
-  margin: auto; /* Center the content */
+  width: fit-content; /* Slightly reduce width for padding */
+  // max-width: 800px; /* Max width for larger screens */
+  // margin: auto; /* Center the content */
+  margin-left: 50px;
+  margin-top: 2rem;
   margin-bottom: 2rem;
   padding: 20px;
   border: solid;
@@ -20,45 +32,33 @@
 }
 .search-container {
     display: flex;
-    justify-content: center; 
+    justify-content: start; 
     flex-direction: row; 
     align-items: center; 
-    gap: 10px
+
   }
-  input[type="text"]{
-    width: 400px;
-    border: solid;
-    border-width: 1px;
-    border-color: #E6E6E6;
-  
-  }
-  input[type="text"], button {
+
+  input[type="text"] {
     
-    padding: 10px;
-    margin-top: 10px; /* Add space above */
+    // padding: -10px;
+    // margin-top: 10px; /* Add space above */
     border-radius: 6px;
     font-size: 1rem;
     
   }
-  button {
-    background-color:var(--teal2);
-    border: none;
-    color: white;
-    cursor: pointer;
+  button{
+    margin-left: 5px;
   }
-  
-  button:hover {
-    background-color: #0056b3; /* Darker blue on hover for feedback */
-  }
-  
+
+
 
   .options-container {
-  
-    display: flex; /* Enables flexbox layout */
-    justify-content: center; /* Center items horizontally */
-    flex-direction: row; /* Stack items vertically */
-    align-items: center; /* Center items vertically */
-    gap: 30px
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 1px; 
   }
   .options-container div {
     margin: 10px 0; /* Add some vertical space between options */

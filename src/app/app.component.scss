@@ -1,4 +1,9 @@
 
-.background {
-    background-color: rgba($color: #d8e1e4, $alpha: 1.0);
+.map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%; /* Fills the entire container */
+  width: 100%;
+  z-index: 1; /* Lower z-index than header */
 }

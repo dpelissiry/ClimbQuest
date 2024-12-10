@@ -1,6 +1,16 @@
 
-import {  AfterViewChecked, OnChanges, Component, Input, OnInit, ViewChild, SimpleChanges} from '@angular/core';
-import L from 'leaflet';
+import { OnChanges, Component, OnInit, Input, ViewChild, SimpleChanges, AfterViewInit} from '@angular/core';
+import * as L from 'leaflet';
+import { BoundsService } from '../bounds.service';
+import { LeafletMouseEvent } from 'leaflet';
+import { SearchService } from '../search.service';
+import { MapZoomService } from '../map-zoom.service';
+
+
+export interface Bound {
+  lat: number;
+  lng: number;
+}
 
 @Component({
   selector: 'app-map',
@@ -9,15 +19,19 @@ import L from 'leaflet';
 })
 
 
-export class MapComponent implements OnChanges{
-  @Input() data: any; // decorate the property with @Input()
+export class MapComponent implements OnInit, OnChanges{
+  data: any; // decorate the property with @Input()
   map: any;
   private marker_list: L.Marker<any>[] = [];
-  private isMapInitialized = false;
+  private isMapInitialized: boolean= false;
+  private bounds: Bound[] = [];
+  private rectangles: any;
 
   private markers = L.markerClusterGroup({removeOutsideVisibleBounds: true}); 
 
   // First, remove the layer from the map, then reset the list of markers and the marker cluster group so they arent added back
+
+  constructor(private readonly mapZoomService: MapZoomService, private readonly boundsService: BoundsService, private readonly searchService: SearchService) { }
 
   private deleteMarkers(): void{
     this.map.removeLayer(this.markers);
@@ -61,30 +75,90 @@ export class MapComponent implements OnChanges{
       console.error('Data is required to add markers.');
     }
   }
-  public fullscreenOptions: FullscreenOptions = {};
 
   private initMap(): void {
     this.map = L.map('map', {
       center: [39.8282, -98.5795],
-      zoom: 3,
+      zoom: 4,
+      zoomControl: false
 
     });
 
-    const tiles = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+    L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
         maxZoom: 20,
         subdomains:['mt0','mt1','mt2','mt3']
-    });
+    }).addTo(this.map);
 
-    tiles.addTo(this.map);
-      
+    L.control.zoom({
+      position: 'bottomright'
+    }).addTo(this.map);
+    this.map.on("click", (e: L.LeafletMouseEvent) => this.addBound(e));
+    // var bounds: L.LatLngBoundsExpression = [[54.559322, -5.767822], [56.1210604, -3.021240]];
+
     
   }
 
-  constructor() { }
+  private addBound(event: L.LeafletMouseEvent){
+    console.log(typeof(event.latlng))
+    this.bounds.push({"lat":event.latlng.lat, "lng":event.latlng.lng})
+    if (this.bounds.length == 2){
+      
 
+      console.log(this.bounds)
+      L.rectangle([[this.bounds[0].lat, this.bounds[0].lng],
+                  [this.bounds[1].lat, this.bounds[1].lng]], 
+                  {color: "#ff7800", weight: 1,
+                className: 'rectangle'}).addTo(this.map);
+      this.boundsService.updateBounds(this.bounds)
+      this.bounds = []
+    }
+  }
+
+
+  deleteRectangles(){
+    this.rectangles = document.querySelectorAll('.rectangle')
+    if(this.rectangles.length > 0){
+  
+       this.rectangles.forEach((rect: any) => {
+          rect.remove();
+       });
+    }
+  }
+
+  ngOnInit(): void{
+    this.initMap()
+    console.log("map init done")
+    this.isMapInitialized = true;
+
+    this.boundsService.boundsOn.subscribe(result =>{
+      if (result == false){
+        this.deleteRectangles();
+      }
+      
+    });
+
+    this.searchService.mapResults.subscribe(result => {
+      if(result['code'] == 200){
+        console.log("recieved")
+        this.data = result['data']
+        this.searchService.clearMap()
+        this.deleteMarkers();
+        console.log(this.marker_list.length)
+        this.addMarkers();
+      }
+    })
+    this.mapZoomService.currentLocation.subscribe(result => {
+      if(result != null){
+        console.log(result.lat, result.lng)
+        this.map.panTo(new L.LatLng(result.lat, result.lng));
+        this.mapZoomService.clearLocation();
+      }
+    })
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (!this.isMapInitialized) {
+      console.log("init")
       this.isMapInitialized = true;
       this.initMap();
       this.addMarkers();

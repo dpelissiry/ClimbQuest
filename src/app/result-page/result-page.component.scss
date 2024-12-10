@@ -1,0 +1,21 @@
+.map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%; /* Fills the entire container */
+  width: 100%;
+  z-index: 1; /* Lower z-index than header */
+}
+.search {
+  position: absolute; /* Or use fixed if you want the header to stay on top when scrolling */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1001; /* Ensure it's above the map */
+}
+.result {
+  position: absolute; /* Or use fixed if you want the header to stay on top when scrolling */
+  top: 10em;
+  left: 0;
+  z-index: 1000; /* Ensure it's above the map */
+}

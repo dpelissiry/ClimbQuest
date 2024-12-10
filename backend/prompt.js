@@ -52,10 +52,10 @@ export function training(type){
   }else if (type == Climbs.Sport){
     return [ {
       "role": "system",
-      "content": "You are a program that reads input about sport climbing routes and creates \
+      "content": "You are a program that reads input about climbing routes and creates \
         a SQL query based upon the input. You will search a dataset called 'sport'. \
-        If a user queries about anything other than routes, return an error. Break down the input into components of location, rating (which will never be greater than 4), grade, num_votes\
-        height, pitches, protection, and keywords to search the climbs description for."
+        Break down the input into components of location, rating (which will never be greater than 4), grade, num_votes\
+        height, pitches, protection, and keywords to search the climbs description for. Always return a valid SQL query."
     },
     {
       "role": "user",

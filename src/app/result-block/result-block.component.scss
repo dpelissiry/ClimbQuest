@@ -62,7 +62,7 @@
         transform: translateY(20px); /* Begin 20px down from the final position */
     }
     100% {
-        background: rgba(255, 255, 255, 0.9); /* End with the semi-transparent background */
+        background: rgba(243, 1, 1, 0.9); /* End with the semi-transparent background */
         opacity: 1; /* Fully visible */
         transform: translateY(0); /* End at the final vertical position */
     }
